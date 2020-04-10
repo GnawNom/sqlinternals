@@ -320,10 +320,10 @@ func (f mysqlField) ReflectSqlType(forceNullable bool) (reflect.Type, error) {
 type errorTypeMismatch uint8
 
 func (e errorTypeMismatch) Error() string {
-	return "no matching go type for " + mysqlNameFor(uint8(e))
+	return "no matching go type for " + mysqlNameFor(fieldType(e))
 }
 
-func mysqlNameFor(fieldType uint8) string {
+func mysqlNameFor(fieldType fieldType) string {
 	switch fieldType {
 	// --- integer ---
 	case fieldTypeTiny:

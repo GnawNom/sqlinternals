@@ -19,8 +19,9 @@ import (
 )
 
 // keep in sync with github.com/go-sql-driver/mysql/const.go
+type fieldType byte
 const (
-	fieldTypeDecimal byte = iota
+	fieldTypeDecimal fieldType = iota
 	fieldTypeTiny
 	fieldTypeShort
 	fieldTypeLong
@@ -38,8 +39,9 @@ const (
 	fieldTypeVarChar
 	fieldTypeBit
 )
+
 const (
-	fieldTypeJSON byte = iota + 0xf5
+	fieldTypeJSON fieldType = iota + 0xf5
 	fieldTypeNewDecimal
 	fieldTypeEnum
 	fieldTypeSet
@@ -77,9 +79,11 @@ const (
 type mysqlField struct {
 	tableName string
 	name      string
+	length    uint32
 	flags     fieldFlag
-	fieldType byte
+	fieldType fieldType
 	decimals  byte
+	charSet   uint8
 }
 
 type resultSet struct {
