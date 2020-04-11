@@ -72,6 +72,9 @@ type Column interface {
 	// derived from mysqlField.decimals
 	Decimals() int
 
+	// size of a varchar, or display width for a fixed size type
+	Length() uint32
+
 	// derived from mysqlField.fieldType and mysqlField.flags
 
 	// MysqlParameters returns the category of parameters the SQL type expects in MysqlDeclaration.
@@ -127,6 +130,10 @@ func (f mysqlField) IsDecimal() bool {
 		return true
 	}
 	return false
+}
+
+func (f mysqlField) Length() uint32 {
+	return f.length
 }
 
 // is a blob type
